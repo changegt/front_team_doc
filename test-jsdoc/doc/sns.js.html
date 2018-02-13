@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: sns.js</title>
+    
+    
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":true,"cleverLinks":true,"default":{"outputSourceFiles":true},"applicationName":"Demo","disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"","description":"","keyword":""},"linenums":false};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html">Demo</a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="SNS">
+            <span class="title">
+                <a href="SNS.html">SNS</a>
+                
+                <span class="static">static</span>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="SNS#alertBox"><a href="SNS.html#alertBox">alertBox</a></li>
+            
+                <li data-name="SNS#isObject"><a href="SNS.html#isObject">isObject</a></li>
+            
+                <li data-name="SNS#isString"><a href="SNS.html#isString">isString</a></li>
+            
+                <li data-name="SNS#strToObject"><a href="SNS.html#strToObject">strToObject</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="PersonC">
+            <span class="title">
+                <a href="PersonC.html">PersonC</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="PersonC.age"><a href="PersonC.html#.age">age</a></li>
+            
+                <li data-name="PersonC.name"><a href="PersonC.html#.name">name</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="sns.js.html">Source: sns.js</h1>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source "><code>//@charset "utf-8";
+
+var $body = $('body');
+var $window = $(window);
+
+/**
+ * @namespace
+ * @description 目前社区基于jQuery扩展的工具库。宗旨是提高开发效率，让开发不再重复s
+ */
+var SNS = function(){};
+
+SNS.prototype = {
+    version: "1.0.5",
+
+    /**
+     * @function
+     */
+    strToObject : function(str){
+        var args = {};
+
+        if(typeof str == "undefined" ||  str.indexOf('=') == -1 ){
+            return args;
+        }
+        var pairs = str.split("&amp;");
+        for(var i = 0, len = pairs.length; i &lt; len; i++){
+            var pos = pairs[i].indexOf('=');
+            var argsName = pairs[i].substring(0, pos);
+            var value = pairs[i].substring(pos + 1);
+            args[argsName] = value;
+        }
+        return args;
+    },
+
+    /**
+     * @function
+     */
+    isString : function(val) {
+        return toString.call(val) === '[object String]';
+    },
+
+    /**
+     * @function
+     */
+    isObject : function(val) {
+        return val === Object(val);
+    },
+
+    /**
+     * &lt;pre>
+     * var defauts = {
+     *      "type": "success",//normal,error,info
+     *      "fadaTime": 1000,
+     *      "tipContent": "操作成功",
+     *      "timeOur": 2000
+     *  }
+     *  &lt;/pre>
+     * @summary 参数配置
+     */
+    alertBox: function(settings, callback){
+        var timeOut;
+        var defauts = {
+            "type": "success",//normal,error,info
+            "fadaTime": 1000,
+            "tipContent": "操作成功",
+            "timeOur": 2000
+        };
+        var options = $.extend({}, defauts, settings);
+        var alertTpl = '&lt;div id="J_Alert" class="dialogtip">&lt;div class="dialogtip-text">&lt;span class="dialogtip-content dialogtip-text-large">&lt;/span>&lt;/div>&lt;/div>';
+        var $JAlert = $('#J_Alert');
+        if(!$JAlert.length){
+            $('body').append(alertTpl);
+
+            $JAlert = $('#J_Alert');
+        } else {
+            timeOut &amp;&amp; clearTimeout(timeOut);
+        }
+        $JAlert.hide().stop(true, true);
+        var $JAlertTextTipContent =  $JAlert.find('.dialogtip-content');
+
+        function removeClass(){
+            $JAlert.removeClass('dialogtip-normal');
+            $JAlert.removeClass('dialogtip-success');
+            $JAlert.removeClass('dialogtip-error');
+            $JAlert.removeClass('dialogtip-info');
+        }
+
+        if(!!options.type){
+            removeClass();
+            $JAlert.addClass('dialogtip-'+options.type);
+        }else{
+            removeClass();
+            $JAlert.addClass('dialogtip-success');
+        }
+        
+        
+        $JAlertTextTipContent.html(options.tipContent);
+        setVerticalCenter($JAlert, 10000);
+        timeOut = setTimeout(function(){
+
+            if($.isFunction(callback)){
+                $JAlert.fadeOut(options.fadaTime, callback);
+            } else {
+                $JAlert.fadeOut(options.fadaTime);
+            }
+            timeOut &amp;&amp; clearTimeout(timeOut);
+
+        }, options.timeOur);
+
+        $window.bind('scroll', function(){
+            timeOut &amp;&amp; clearTimeout(timeOut);  
+            $JAlert.stop(true, true).hide();   
+            //$window.unbind('scroll');
+        });
+    }
+};
+
+String.prototype.alphaAddOne = function(){
+    var _this = this;
+    if( $.trim(_this) === '' ){
+        _this = '(0)';
+    }
+    return _this.replace(/\d+/, function(matchs){
+        if(typeof matchs == 'undefined'){
+            matchs = '';
+        }
+        return parseInt(matchs) + 1; 
+    });
+};
+
+var toString = Object.prototype.toString;
+var AP = Array.prototype;
+
+    
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Feb 13 2018 17:31:34 GMT+0800 (中国标准时间)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>

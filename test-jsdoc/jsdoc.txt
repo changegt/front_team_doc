@@ -1,0 +1,67 @@
+@abstract (synonyms: @virtual)
+@access
+@alias
+@async
+@augments (synonyms: @extends)
+@author
+@borrows
+@callback
+@class (synonyms: @constructor)
+@classdesc
+@constant (synonyms: @const)
+@constructs
+@copyright
+@default (synonyms: @defaultvalue)
+@deprecated
+@description (synonyms: @desc)
+@enum
+@event
+@example
+@exports
+@external (synonyms: @host)
+@file (synonyms: @fileoverview, @overview)
+@fires (synonyms: @emits)
+@function (synonyms: @func, @method)
+@generator
+@global
+@hideconstructor
+@ignore
+@implements
+@inheritdoc
+@inner
+@instance
+@interface
+@kind
+@lends
+@license
+@listens
+@member (synonyms: @var)
+@memberof
+@mixes
+@mixin
+@module
+@name
+@namespace
+@override
+@package
+@param (synonyms: @arg, @argument)
+@private
+@property (synonyms: @prop)
+@protected
+@public
+@readonly
+@requires
+@returns (synonyms: @return)
+@see
+@since
+@static
+@summary
+@this
+@throws (synonyms: @exception)
+@todo
+@tutorial
+@type
+@typedef
+@variation
+@version
+@yields (synonyms: @yield)
